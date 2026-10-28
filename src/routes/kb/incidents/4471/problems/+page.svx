@@ -1,0 +1,63 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: kevmiota
+status: open
+reviewed: 2026-10-28
+signature: kevmiota
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. Its reports describe
+three problems. The parser fix that is queued fixes only the first one. Each problem now has a
+ticket of its own.
+
+<Callout kind="warn">
+Fixing the parser does not close #4471. The booking-v3 hint and the one-day move stay broken
+after it ships.
+</Callout>
+
+## The problems
+
+<ProblemTable ticket={4471} issues={{ parser: 'https://github.com/kevmiota/mega-s01e03-kb/issues/1', hint: 'https://github.com/kevmiota/mega-s01e03-kb/issues/2', move: 'https://github.com/kevmiota/mega-s01e03-kb/issues/3' }} />
+
+- **`parser`**: the shared parser reads every date month first. Our tenants write the day
+  first, so the day and the month swap: "Our 7 April reminder went out on 4 July."
+- **`hint`**: the booking-v3 form prints `MM/DD/YYYY` under its date field. People at
+  day-first tenants type what the hint says, and the form reads it day first. The result is
+  also a swap, so these reports look like `parser`, but the parser fix does not touch them.
+  Only reports sent through the form of a booking-v3 tenant have this cause.
+- **`move`**: the date moves by one day, or a meeting lands on two different days for two
+  time zones: "Client in Lisbon got Tuesday. Client in Toronto got Monday." No day and month
+  swap here. The desk had already marked these reports (`desk-notes.json`), but they stayed
+  counted under `parser`.
+
+## How the reports were placed
+
+- Each report is counted once (`uniqueById`). The export pages overlap, so some reports
+  appear twice in the file.
+- `parser` and `hint` come from the tenant and the channel (`causeOf` in `causes.ts`), not from
+  the intake tag. Intake guesses from the reporter's browser and disagrees with the tenant on
+  many reports.
+- `move` is the set of reports in `desk-notes.json`. Their bodies describe a one-day shift
+  or a time-zone split, not a swap.
+
+For comparison, the table on the #4471 page, built by the same rules without the `move` row:
+
+<CauseTable ticket={4471} />
+
+## Why it was merged as one
+
+The [dedupe rule](/kb/triage/dedupe) merges on the subject line. All three problems produce
+the same subjects ("Wrong day on the invite", "Date is wrong"), so subject matching put them in
+one ticket. [Decision 0001](/kb/decisions/0001-dedupe-by-subject) accepted that reports with
+different subjects about one bug would split. It did not consider the opposite case: reports
+with one subject about different bugs. That case is what happened here.
+
+<RenderStamp {signature} />
