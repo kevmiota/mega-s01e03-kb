@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: kevmiota
 status: open
 reviewed: 2026-10-28
-signature: kevmiota
+signature: 'v1.eyJzdWIiOiIyOTg1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxOTIxNzksImV4cCI6MTc5MzI3ODU3OX0.-t70qK5k-iYg4enoEVW75vnoHL8eU8IXTqBSQQvF5QQ'
 ---
 
 <script>
