@@ -15,15 +15,29 @@ signature: kevmiota
 </script>
 
 [#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. Its reports describe
-three problems. The parser fix that is queued fixes only the first one. Each problem now has a
-ticket of its own.
+three problems. The parser fix fixed only the first one. Each problem now has a ticket of its
+own.
+
+## Where each problem stands
+
+Engineering closed #4471 on 5 October.
+
+- `parser`: **fixed** by "fix(dates): parse dd/mm for eu locales".
+  [#1](https://github.com/kevmiota/mega-s01e03-kb/issues/1) is closed as completed.
+- `hint`: **won't fix**, because the booking-v3 form is retired.
+  [#2](https://github.com/kevmiota/mega-s01e03-kb/issues/2) is closed as not planned.
+- `move`: **still open.** The engineering update on #4471 does not cover it, and the parser fix
+  does not touch it. [#3](https://github.com/kevmiota/mega-s01e03-kb/issues/3) stays open.
 
 <Callout kind="warn">
-Fixing the parser does not close #4471. The booking-v3 hint and the one-day move stay broken
-after it ships.
+#4471 is closed, but the one-day move is not fixed. A new report of a booking that moves by one
+day belongs in #3, not in a reopened #4471.
 </Callout>
 
 ## The problems
+
+#1 counts 379 reports, which is how the desk's own view counts them: the 5 one-day moves are
+filed under `parser` by tenant. The table below gives them their own row.
 
 <ProblemTable ticket={4471} issues={{ parser: 'https://github.com/kevmiota/mega-s01e03-kb/issues/1', hint: 'https://github.com/kevmiota/mega-s01e03-kb/issues/2', move: 'https://github.com/kevmiota/mega-s01e03-kb/issues/3' }} />
 
