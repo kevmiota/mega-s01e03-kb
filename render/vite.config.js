@@ -13,7 +13,7 @@ export default defineConfig({
       preprocess: [mdsvex({ extensions: ['.svx'], layout: { runbook } })],
       adapter: adapter({ pages: 'out', assets: 'out', strict: false }),
       prerender: {
-        entries: ['/kb', '/kb/incidents/4471', '/kb/incidents/4471/problems', '/kb/triage/dedupe', '/kb/decisions/0001-dedupe-by-subject'],
+        entries: ['/kb', '/kb/incidents/4471', '/kb/incidents/4471-problems', '/kb/triage/dedupe', '/kb/decisions/0001-dedupe-by-subject'],
         handleHttpError: 'warn',
       },
     }),

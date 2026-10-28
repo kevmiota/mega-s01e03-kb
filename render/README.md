@@ -7,4 +7,4 @@ minimum SvelteKit 3 + mdsvex shell around `src/` (`app.html`, a prerendering roo
 `sync.sh` expects to sit in a build folder next to this repo (`../repo/src`); it copies `src/`,
 adds `tmpl/`, and runs `vite build` into `out/`, which was copied here as `rendered/`.
 
-The new page renders at `rendered/kb/incidents/4471/problems.html`.
+The new page renders at `rendered/kb/incidents/4471-problems.html`.
